@@ -25,6 +25,10 @@ const Login = () => {
         // Validate the password
         if (user.password === password) {
             // Password is correct
+            // get jwt token and save it into local storage but saving into local storage isn't the best solution because it can easily access by user so the best solution is save this token into database as we don't have this so we can save it into local storage.
+            fetch('http://localhost:5000/jwt')
+            .then(res => res.json())
+            .then(token => localStorage.setItem('access-token', token.token))
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
