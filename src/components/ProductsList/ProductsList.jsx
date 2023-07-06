@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { addToDb } from '../../utils/AddToDB';
 
 const ProductsList = () => {
     const [products, setProducts] = useState([])
     const [axiosSecure] = useAxiosSecure()
-    axiosSecure('/products')
+
+    useEffect(() => {
+        axiosSecure('/products')
         .then(res => setProducts(res.data))
+    }, [axiosSecure])
 
     const handleShowDetails = (product) => {
         Swal.fire({
@@ -22,6 +26,17 @@ const ProductsList = () => {
             imageAlt: 'Product image',
         })
     }
+
+    const handleAddToCart = (product) => {
+        addToDb(product.id)
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `${product.name} added to cart!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+    }
     return (
         <div>
             <h3 className='text-center text-2xl font-semibold pb-2'>Total Products {products.length}</h3>
@@ -34,7 +49,7 @@ const ProductsList = () => {
                             <p>Price: ${product.price}</p>
                             <div className="card-actions justify-end">
                                 <button onClick={() => handleShowDetails(product)} className="btn btn-primary">Show Details</button>
-                                <button className="btn btn-primary">Buy Now</button>
+                                <button onClick={() => handleAddToCart(product)} className="btn btn-primary">Buy Now</button>
                             </div>
                         </div>
                     </div>)

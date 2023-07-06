@@ -1,13 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 const Navbar = () => {
+    const location = useLocation();
+
+    const showNavbar = () => {
+        // Check if the current location has the showNavbar property
+        if (location.state && location.state.showNavbar) {
+            return true;
+        }
+        return false;
+    };
+
     const navItems = <>
-    <li><a>Admin Dashboard</a></li>
+        <li><a>Admin Dashboard</a></li>
     </>
     return (
         <div className="navbar bg-base-100">
-            <div className="navbar-start">
+            {showNavbar &&  <><div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
@@ -16,7 +26,7 @@ const Navbar = () => {
                        {navItems}
                     </ul>
                 </div>
-                <Link to="/" className="btn btn-ghost normal-case text-xl">Practical-Challenge</Link>
+                <Link to="/home" className="btn btn-ghost normal-case text-xl">Practical-Challenge</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -24,10 +34,10 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to="/" className="btn">
+                <Link to="/cart" className="btn">
                     <AiOutlineShoppingCart />
                 </Link>
-            </div>
+            </div></>}
         </div>
     );
 };
