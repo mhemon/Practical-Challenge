@@ -10,29 +10,43 @@ import UserLayout from './layout/UserLayout.jsx';
 import ProductCart from './components/ProductCart/ProductCart.jsx';
 import Login from './components/Login/Login.jsx';
 import { productsAndCartData } from './loader/productsAndCartData';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import AdminLayout from './layout/AdminLayout';
+import CustomerList from './components/CustomerList/CustomerList';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
-    showNavbar: false,
   },
   {
     path: '/cart',
     element: <ProductCart />,
-    showNavbar: true,
     // load initial cart and products data
     loader: productsAndCartData,
   },
   {
     path: "home",
     element: <UserLayout />,
-    showNavbar: true,
     children: [
       {
         path: '/home',
         element: <UserHome />,
         showNavbar: true,
+      }
+    ]
+  },
+  {
+    path: "admin",
+    element: <AdminLayout/>,
+    children: [
+      {
+        path: 'dashboard',
+        element: <AdminDashboard/>
+      },
+      {
+        path: 'customerList',
+        element: <CustomerList/>
       }
     ]
   }

@@ -27,7 +27,7 @@ const Login = () => {
             // Password is correct
             // get jwt token and save it into local storage but saving into local storage isn't the best solution because it can easily access by user so the best solution is save this token into database as we don't have this so we can save it into local storage.
             const getToken = async () => {
-                const response = await fetch('http://localhost:5000/jwt');
+                const response = await fetch('https://practical-challenge-server.vercel.app/jwt');
                 const data = await response.json(); // Assuming the token is returned in the response body as JSON
                 localStorage.setItem('access-token', data.token);
                 Swal.fire({
@@ -50,7 +50,7 @@ const Login = () => {
     }
     // loading user data from backend.
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://practical-challenge-server.vercel.app/users')
             .then(res => res.json())
             .then(users => setUsers(users))
     }, [])

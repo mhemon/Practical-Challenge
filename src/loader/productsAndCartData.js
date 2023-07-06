@@ -1,7 +1,7 @@
 import { getStoredCart } from "../utils/AddToDB"
 
 export const productsAndCartData = async () => {
-  const productsData = await fetch('http://localhost:5000/productswithouttoken')
+  const productsData = await fetch('https://practical-challenge-server.vercel.app/productswithouttoken')
   const products = await productsData.json() 
   const savedCart = getStoredCart()
   const initialCart = []
